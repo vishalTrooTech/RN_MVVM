@@ -2,11 +2,15 @@ import {useNavigation} from '@react-navigation/native';
 import {Photo, Post, PostNew} from '../../types/types';
 import {useHomeViewModel} from './useHomeViewModel';
 import {ScreenNames} from '../../navigators/ScreenNames';
+import {usePermission} from '../../hooks/usePermission';
+import {Platform} from 'react-native';
+import {PERMISSIONS} from 'react-native-permissions';
 
 export const useHomeController = () => {
   const navigation = useNavigation();
   const {fetchPosts, fetchInitial, onPostEndReached, loadMore} =
     useHomeViewModel();
+  const {checkAndRequestPermission} = usePermission();
 
   const onRefreshClick = () => {
     fetchInitial();
@@ -28,6 +32,14 @@ export const useHomeController = () => {
     onPostEndReached();
   };
 
+  const onPermissionClick = () => {
+    const permission = Platform.select({
+      ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    });
+    checkAndRequestPermission(permission);
+  };
+
   return {
     onGetPostClick,
     onPostClick,
@@ -37,5 +49,6 @@ export const useHomeController = () => {
     onNewPostEndReached,
     loadMore,
     onFormClick,
+    onPermissionClick,
   };
 };

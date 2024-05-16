@@ -1,12 +1,10 @@
 import React from 'react';
-import {Button, Platform, ScrollView} from 'react-native';
-import {PERMISSIONS} from 'react-native-permissions';
+import {Button, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import Loader from '../../components/Loader';
 import {PhotoList} from '../../components/PhotoList';
 import {PostList} from '../../components/PostList';
 import {PostListNew} from '../../components/PostListNew';
-import {usePermission} from '../../hooks/usePermission';
 import {RootState} from '../../store/configureStore';
 import {style} from './style';
 import {useHomeController} from './useHomeController';
@@ -20,17 +18,10 @@ export const Home: React.FC = () => {
     onNewPostEndReached,
     onFormClick,
     loadMore,
+    onPermissionClick,
   } = useHomeController();
-  const {checkAndRequestPermission} = usePermission();
-  const homeData = useSelector((state: RootState) => state.home);
 
-  const onPermissionClick = () => {
-    const permission = Platform.select({
-      ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-    });
-    checkAndRequestPermission(permission);
-  };
+  const homeData = useSelector((state: RootState) => state.home);
 
   return (
     <ScrollView style={style.container}>
