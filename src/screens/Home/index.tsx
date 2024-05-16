@@ -1,15 +1,15 @@
 import React from 'react';
-import {Button, Platform, ScrollView, View} from 'react-native';
+import {Button, Platform, ScrollView} from 'react-native';
+import {PERMISSIONS} from 'react-native-permissions';
 import {useSelector} from 'react-redux';
 import Loader from '../../components/Loader';
 import {PhotoList} from '../../components/PhotoList';
 import {PostList} from '../../components/PostList';
 import {PostListNew} from '../../components/PostListNew';
+import {usePermission} from '../../hooks/usePermission';
 import {RootState} from '../../store/configureStore';
 import {style} from './style';
 import {useHomeController} from './useHomeController';
-import {usePermission} from '../../hooks/usePermission';
-import {PERMISSIONS} from 'react-native-permissions';
 
 export const Home: React.FC = () => {
   const {

@@ -6,7 +6,7 @@ import {PostDetails} from '../screens/PostDetails';
 import {ScreenNames} from './ScreenNames';
 
 const commonNavOption = {
-  headerShown: false,
+  headerShown: true,
   gestureEnabled: false,
 };
 
@@ -28,7 +28,7 @@ function AppNavigator() {
       <Stack.Screen
         name={ScreenNames.Form}
         component={Form}
-        options={{...commonNavOption, headerShown: true}}
+        options={commonNavOption}
       />
     </Stack.Navigator>
   );

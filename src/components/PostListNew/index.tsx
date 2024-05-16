@@ -4,6 +4,7 @@ import {NewPostData, PostNew} from '../../types/types';
 import {FooterComponent} from '../FooterComponent';
 import {PostRenderItem} from './PostRenderItem';
 import {styles} from './styles';
+import {ShimmerPost} from '../Shimmer/ShimmerPost';
 
 type Props = {
   postData: NewPostData;
@@ -18,28 +19,23 @@ export const PostListNew: React.FC<Props> = props => {
   };
 
   return (
-    <View
-      style={[
-        styles.rootView,
-        {
-          display:
-            props?.postData && props?.postData?.data?.length > 0
-              ? 'flex'
-              : 'none',
-        },
-      ]}>
+    <View style={styles.rootView}>
       <Text style={styles.txtPost}>New Posts</Text>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        data={props?.postData?.data}
-        renderItem={PostItem}
-        onEndReachedThreshold={0.3}
-        onEndReached={() => props.onEndReached()}
-        ListFooterComponent={() => (
-          <FooterComponent loading={props?.loadMore} />
-        )}
-      />
+      {props?.postData && props?.postData?.data?.length > 0 ? (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          data={props?.postData?.data}
+          renderItem={PostItem}
+          onEndReachedThreshold={0.3}
+          onEndReached={() => props.onEndReached()}
+          ListFooterComponent={() => (
+            <FooterComponent loading={props?.loadMore} />
+          )}
+        />
+      ) : (
+        <ShimmerPost />
+      )}
     </View>
   );
 };

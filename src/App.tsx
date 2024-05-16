@@ -11,14 +11,12 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Provider store={store}>
-        <NavigationContainer>
-          <AppNavigator />
-          <Toast />
-        </NavigationContainer>
-      </Provider>
-    </SafeAreaView>
+    <Provider store={store}>
+      <NavigationContainer>
+        <AppNavigator />
+        <Toast />
+      </NavigationContainer>
+    </Provider>
   );
 }
 
